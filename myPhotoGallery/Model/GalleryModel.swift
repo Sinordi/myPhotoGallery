@@ -10,14 +10,15 @@ import Foundation
 struct GalleryModel: Codable {
     let total: Int
     let total_pages: Int
-    let results: Results
+    let results: [Gallery]
 }
 
-struct Results: Codable {
+struct Gallery: Codable {
     let id: String
     let urls: URLS
 }
 
 struct URLS: Codable {
-    let full: String
+    let small: String
 }
+

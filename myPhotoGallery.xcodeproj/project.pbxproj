@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D89803D8273E731E00FD3A93 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89803D7273E731E00FD3A93 /* PhotoCell.swift */; };
 		D8B96E27273D701900A5157E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E26273D701900A5157E /* AppDelegate.swift */; };
 		D8B96E29273D701900A5157E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E28273D701900A5157E /* SceneDelegate.swift */; };
 		D8B96E2B273D701900A5157E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E2A273D701900A5157E /* ViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D89803D7273E731E00FD3A93 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		D8B96E23273D701900A5157E /* myPhotoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myPhotoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8B96E26273D701900A5157E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8B96E28273D701900A5157E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 		D8B96E47273E22A500A5157E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D89803D7273E731E00FD3A93 /* PhotoCell.swift */,
 				D8B96E2C273D701900A5157E /* Main.storyboard */,
 			);
 			path = Views;
@@ -193,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8B96E40273D743700A5157E /* CollectionViewController.swift in Sources */,
+				D89803D8273E731E00FD3A93 /* PhotoCell.swift in Sources */,
 				D8B96E2B273D701900A5157E /* ViewController.swift in Sources */,
 				D8B96E27273D701900A5157E /* AppDelegate.swift in Sources */,
 				D8B96E29273D701900A5157E /* SceneDelegate.swift in Sources */,

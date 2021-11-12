@@ -7,11 +7,17 @@
 
 import Foundation
 
+protocol NetworkServiceDelegate {
+    func didUpdateGallery(with gallery: GalleryModel)
+}
+
 class NetworkService {
     
+    var delegate: NetworkServiceDelegate?
     
     func fetchPhotos(with guery: String) {
-        let url = "https://api.unsplash.com/search/photos?page=1&query=\(guery)&client_id=vq44QqTLd-Y01tPUURer1a9o_QkaStYvlu4WOfUUVR4"
+        print("Выполняется запрос")
+        let url = "https://api.unsplash.com/search/photos?page=1&per_page=20&query=\(guery)&client_id=vq44QqTLd-Y01tPUURer1a9o_QkaStYvlu4WOfUUVR4"
         performRequest(with: url)
     }
     
@@ -26,11 +32,11 @@ class NetworkService {
                 if let data = data {
                     do {
                         let results = try JSONDecoder().decode(GalleryModel.self, from: data)
-                        print(results)
+                        print("Данные получены и декодированы")
+                        self.delegate?.didUpdateGallery(with: results)
                     } catch {
-                        print("Не удалось распарсить данные")
+                        print("Не удалось декодировать данные")
                     }
-                    
                 }
             }
             task.resume()
