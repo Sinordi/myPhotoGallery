@@ -15,10 +15,18 @@ struct GalleryModel: Codable {
 
 struct Gallery: Codable {
     let id: String
+    let created_at: String
     let urls: URLS
+    let user: User
 }
 
 struct URLS: Codable {
     let small: String
+}
+
+struct User: Codable {
+    let name: String
+    let location: String?
+    let total_collections: Int?
 }
 

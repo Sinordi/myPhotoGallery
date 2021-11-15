@@ -14,6 +14,9 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
     var gallery: GalleryModel?
     private var photos = [Gallery]()
     
+    deinit {
+        print("Удалился 1")
+    }
     
     
     
@@ -73,6 +76,14 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
         cell.configure(with: photoURLString)
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let aboutVC = AboutViewController()
+        aboutVC.aboutPhoto = photos[indexPath.row]
+        self.navigationController?.pushViewController(aboutVC, animated: true)
+        
+    }
+
     
     //MARK:- UISearchBarDelegate
 
