@@ -9,18 +9,12 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    var dataService = DataService()
+    lazy var dataService: DataService = {
+    DataService()
+    }()
+
     var aboutPhoto: Gallery?
-    
-    init(dataService: DataService) {
-        self.dataService = dataService
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     var userLabel = UILabel()
     var dateLabel = UILabel()
     var locationLabel = UILabel()

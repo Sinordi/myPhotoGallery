@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import CLTypingLabel
 
 
 class PhotoCollectionViewController: UICollectionViewController, UISearchBarDelegate {
     
+    private var startingLabels = CLTypingLabel()
     var networkService: NetworkService
     var gallery: GalleryModel?
     private var photos = [Gallery]()
@@ -31,11 +33,21 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
     
     //MARK:- ConfigureView
     private func configureView() {
+        setupStartingLabel()
         networkService.delegate = self
         collectionView.backgroundColor = .white
         setupCollectionView()
         setSearchBar()
         print("Сработал configureView для CollectionViewController")
+    }
+
+    func setupStartingLabel() {
+        
+        startingLabels.text = "Введите свой запрос"
+        startingLabels.center.x = (self.view.center.x - 80)
+        startingLabels.center.y = self.view.center.y
+        startingLabels.charInterval = 1
+        self.view.addSubview(startingLabels)
     }
     
     private func setupCollectionView() {
@@ -79,9 +91,9 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let aboutVC = DetailViewController(dataService: DataService())
-        aboutVC.aboutPhoto = photos[indexPath.row]
-        self.navigationController?.pushViewController(aboutVC, animated: true)
+        let detailVC = DetailViewController()
+        detailVC.aboutPhoto = photos[indexPath.row]
+        self.navigationController?.pushViewController(detailVC, animated: true)
         
     }
 
@@ -91,6 +103,7 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.networkService.fetchPhotos(with: searchBar.text ?? "")
         print("Запрос отправлен")
+        startingLabels.isHidden = true
     }
 }
 
@@ -102,7 +115,6 @@ extension PhotoCollectionViewController: NetworkServiceDelegate {
         DispatchQueue.main.async {
             self.collectionView.reloadData()
         }
-        
     }
 }
 

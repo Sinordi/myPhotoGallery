@@ -18,7 +18,7 @@ class TabBarViewController: UITabBarController {
         
         viewControllers = [
             setNavigationController(rootVC: collectionVC, title: "Gallery", image: UIImage(systemName: "photo.on.rectangle.angled")!),
-            setNavigationController(rootVC: FavoriteViewController(dataService: DataService()), title: "Favorite", image: UIImage(systemName: "heart.circle")!)
+            setNavigationController(rootVC: FavoriteViewController(), title: "Favorite", image: UIImage(systemName: "heart.circle")!)
         ]
     }
     

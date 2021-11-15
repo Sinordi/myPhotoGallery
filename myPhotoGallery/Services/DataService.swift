@@ -8,10 +8,10 @@
 import Foundation
 
 class DataService {
-    var arrayOfFavoritePhoto: [Gallery] = []
+    static var arrayOfFavoritePhoto: [Gallery] = []
     
     func addNewPhoto(with photo: Gallery) {
-        arrayOfFavoritePhoto.append(photo)
+        DataService.arrayOfFavoritePhoto.append(photo)
         print("Func addNewPhoto with \(photo.id)")
     }
 }

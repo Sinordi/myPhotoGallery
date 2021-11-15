@@ -28,8 +28,9 @@ class FavoriteTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .red
+        contentView.backgroundColor = .gray
         contentView.addSubview(photoImageView)
+        contentView.addSubview(userLabel)
     }
     
     required init?(coder: NSCoder) {
