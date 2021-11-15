@@ -3,22 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		D89803D8273E731E00FD3A93 /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89803D7273E731E00FD3A93 /* PhotoCell.swift */; };
 		D89803DA274108D300FD3A93 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89803D9274108D300FD3A93 /* FavoriteViewController.swift */; };
 		D89803DC27410EF500FD3A93 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89803DB27410EF500FD3A93 /* FavoriteTableViewCell.swift */; };
+		D89803DE27425F9900FD3A93 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D89803DD27425F9900FD3A93 /* DataService.swift */; };
+		D89803E1274260A200FD3A93 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = D89803E0274260A200FD3A93 /* Realm */; };
+		D89803E3274260A200FD3A93 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D89803E2274260A200FD3A93 /* RealmSwift */; };
 		D8B96E27273D701900A5157E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E26273D701900A5157E /* AppDelegate.swift */; };
 		D8B96E29273D701900A5157E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E28273D701900A5157E /* SceneDelegate.swift */; };
-		D8B96E2B273D701900A5157E /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E2A273D701900A5157E /* AboutViewController.swift */; };
+		D8B96E2B273D701900A5157E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E2A273D701900A5157E /* DetailViewController.swift */; };
 		D8B96E2E273D701900A5157E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B96E2C273D701900A5157E /* Main.storyboard */; };
 		D8B96E31273D701900A5157E /* myPhotoGallery.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E2F273D701900A5157E /* myPhotoGallery.xcdatamodeld */; };
 		D8B96E33273D701A00A5157E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8B96E32273D701A00A5157E /* Assets.xcassets */; };
 		D8B96E36273D701A00A5157E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B96E34273D701A00A5157E /* LaunchScreen.storyboard */; };
 		D8B96E3E273D704900A5157E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E3D273D704900A5157E /* TabBarViewController.swift */; };
-		D8B96E40273D743700A5157E /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E3F273D743700A5157E /* CollectionViewController.swift */; };
+		D8B96E40273D743700A5157E /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E3F273D743700A5157E /* PhotoCollectionViewController.swift */; };
 		D8B96E42273E1A8900A5157E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E41273E1A8900A5157E /* NetworkService.swift */; };
 		D8B96E4A273E232E00A5157E /* GalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E49273E232E00A5157E /* GalleryModel.swift */; };
 /* End PBXBuildFile section */
@@ -27,17 +30,18 @@
 		D89803D7273E731E00FD3A93 /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		D89803D9274108D300FD3A93 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		D89803DB27410EF500FD3A93 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
+		D89803DD27425F9900FD3A93 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		D8B96E23273D701900A5157E /* myPhotoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myPhotoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8B96E26273D701900A5157E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D8B96E28273D701900A5157E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D8B96E2A273D701900A5157E /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		D8B96E2A273D701900A5157E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		D8B96E2D273D701900A5157E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D8B96E30273D701900A5157E /* myPhotoGallery.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = myPhotoGallery.xcdatamodel; sourceTree = "<group>"; };
 		D8B96E32273D701A00A5157E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D8B96E35273D701A00A5157E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D8B96E37273D701A00A5157E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8B96E3D273D704900A5157E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		D8B96E3F273D743700A5157E /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		D8B96E3F273D743700A5157E /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
 		D8B96E41273E1A8900A5157E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		D8B96E49273E232E00A5157E /* GalleryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -47,6 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D89803E3274260A200FD3A93 /* RealmSwift in Frameworks */,
+				D89803E1274260A200FD3A93 /* Realm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				D8B96E41273E1A8900A5157E /* NetworkService.swift */,
+				D89803DD27425F9900FD3A93 /* DataService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -97,8 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				D8B96E3D273D704900A5157E /* TabBarViewController.swift */,
-				D8B96E3F273D743700A5157E /* CollectionViewController.swift */,
-				D8B96E2A273D701900A5157E /* AboutViewController.swift */,
+				D8B96E3F273D743700A5157E /* PhotoCollectionViewController.swift */,
+				D8B96E2A273D701900A5157E /* DetailViewController.swift */,
 				D89803D9274108D300FD3A93 /* FavoriteViewController.swift */,
 			);
 			path = Controllers;
@@ -147,6 +154,10 @@
 			dependencies = (
 			);
 			name = myPhotoGallery;
+			packageProductDependencies = (
+				D89803E0274260A200FD3A93 /* Realm */,
+				D89803E2274260A200FD3A93 /* RealmSwift */,
+			);
 			productName = myPhotoGallery;
 			productReference = D8B96E23273D701900A5157E /* myPhotoGallery.app */;
 			productType = "com.apple.product-type.application";
@@ -174,6 +185,9 @@
 				Base,
 			);
 			mainGroup = D8B96E1A273D701900A5157E;
+			packageReferences = (
+				D89803DF274260A200FD3A93 /* XCRemoteSwiftPackageReference "realm-cocoa" */,
+			);
 			productRefGroup = D8B96E24273D701900A5157E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -202,10 +216,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D89803DA274108D300FD3A93 /* FavoriteViewController.swift in Sources */,
-				D8B96E40273D743700A5157E /* CollectionViewController.swift in Sources */,
+				D8B96E40273D743700A5157E /* PhotoCollectionViewController.swift in Sources */,
 				D89803D8273E731E00FD3A93 /* PhotoCell.swift in Sources */,
-				D8B96E2B273D701900A5157E /* AboutViewController.swift in Sources */,
+				D8B96E2B273D701900A5157E /* DetailViewController.swift in Sources */,
 				D8B96E27273D701900A5157E /* AppDelegate.swift in Sources */,
+				D89803DE27425F9900FD3A93 /* DataService.swift in Sources */,
 				D8B96E29273D701900A5157E /* SceneDelegate.swift in Sources */,
 				D8B96E3E273D704900A5157E /* TabBarViewController.swift in Sources */,
 				D8B96E31273D701900A5157E /* myPhotoGallery.xcdatamodeld in Sources */,
@@ -415,6 +430,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D89803DF274260A200FD3A93 /* XCRemoteSwiftPackageReference "realm-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.19.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D89803E0274260A200FD3A93 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D89803DF274260A200FD3A93 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = Realm;
+		};
+		D89803E2274260A200FD3A93 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D89803DF274260A200FD3A93 /* XCRemoteSwiftPackageReference "realm-cocoa" */;
+			productName = RealmSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		D8B96E2F273D701900A5157E /* myPhotoGallery.xcdatamodeld */ = {

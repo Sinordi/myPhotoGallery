@@ -8,16 +8,20 @@
 import UIKit
 
 
-class CollectionViewController: UICollectionViewController, UISearchBarDelegate {
+class PhotoCollectionViewController: UICollectionViewController, UISearchBarDelegate {
     
-    var networkService = NetworkService()
+    var networkService: NetworkService
     var gallery: GalleryModel?
     private var photos = [Gallery]()
     
-    deinit {
-        print("Удалился 1")
+    init(networkService: NetworkService) {
+        self.networkService = networkService
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
     override func viewDidLoad() {
@@ -25,19 +29,16 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
         configureView()
     }
     
-    
     //MARK:- ConfigureView
     private func configureView() {
         networkService.delegate = self
         collectionView.backgroundColor = .white
-        setCollectionView()
+        setupCollectionView()
         setSearchBar()
-
-        
-        
+        print("Сработал configureView для CollectionViewController")
     }
     
-    private func setCollectionView() {
+    private func setupCollectionView() {
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -78,7 +79,7 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let aboutVC = AboutViewController()
+        let aboutVC = DetailViewController(dataService: DataService())
         aboutVC.aboutPhoto = photos[indexPath.row]
         self.navigationController?.pushViewController(aboutVC, animated: true)
         
@@ -93,7 +94,7 @@ class CollectionViewController: UICollectionViewController, UISearchBarDelegate 
     }
 }
 
-extension CollectionViewController: NetworkServiceDelegate {
+extension PhotoCollectionViewController: NetworkServiceDelegate {
     
     func didUpdateGallery(with gallery: GalleryModel) {
         self.gallery = gallery

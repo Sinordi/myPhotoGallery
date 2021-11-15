@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DetailViewController.swift
 //  myPhotoGallery
 //
 //  Created by Сергей Кривошапко on 11.11.2021.
@@ -7,25 +7,24 @@
 
 import UIKit
 
-protocol AboutViewDelegate: AnyObject {
-    func addFavoritePhotoButtonClicked(with photo: Gallery?)
-}
-
-class AboutViewController: UIViewController {
+class DetailViewController: UIViewController {
     
-    var favoriteVC = FavoriteViewController()
-    
+    var dataService = DataService()
     var aboutPhoto: Gallery?
     
-    var userLable = UILabel()
-    var dateLable = UILabel()
-    var locationLable = UILabel()
-    var numOfDownloadsLable = UILabel()
+    init(dataService: DataService) {
+        self.dataService = dataService
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    var userString: String?
-    var dateString: String?
-    var locationString: String?
-    var numOfDownloadsString: String?
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var userLabel = UILabel()
+    var dateLabel = UILabel()
+    var locationLabel = UILabel()
+    var numOfDownloadsLabel = UILabel()
     
     var addPhotoButton = UIButton()
     
@@ -40,32 +39,32 @@ class AboutViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configuration()
+        configureView()
     }
     
-    func configuration() {
+    private func configureView() {
         self.view.backgroundColor = #colorLiteral(red: 1, green: 0.9814007878, blue: 0.8189846277, alpha: 1)
         let height = view.frame.height
         
-        userString = ("Пользователь: \(aboutPhoto?.user.name ?? "Неизвестно")")
-        dateString = ("Дата создания: \(aboutPhoto?.created_at ?? "Неизвестно")")
-        locationString = ("Местоположение: \(aboutPhoto?.user.location ?? "Неизвестно")")
-        numOfDownloadsString = ("Количество скачиваний: \(aboutPhoto?.user.total_collections ?? 0)")
+        let userString = ("Пользователь: \(aboutPhoto?.user.name ?? "Неизвестно")")
+        let dateString = ("Дата создания: \(aboutPhoto?.created_at ?? "Неизвестно")")
+        let locationString = ("Местоположение: \(aboutPhoto?.user.location ?? "Неизвестно")")
+        let numOfDownloadsString = ("Количество скачиваний: \(aboutPhoto?.user.total_collections ?? 0)")
         
-        setLables(with: userLable, yPosition: height/2, text: userString)
-        setLables(with: dateLable, yPosition: height/2 + 50, text: dateString)
-        setLables(with: locationLable, yPosition: height/2 + 100, text: locationString)
-        setLables(with: numOfDownloadsLable, yPosition: height/2 + 150, text: numOfDownloadsString)
+        setLabels(with: userLabel, yPosition: height/2, text: userString)
+        setLabels(with: dateLabel, yPosition: height/2 + 50, text: dateString)
+        setLabels(with: locationLabel, yPosition: height/2 + 100, text: locationString)
+        setLabels(with: numOfDownloadsLabel, yPosition: height/2 + 150, text: numOfDownloadsString)
         setImage()
         setButton()
         
     }
     
-    func setLables(with lable: UILabel, yPosition y: CGFloat, text: String?) {
+    func setLabels(with label: UILabel, yPosition y: CGFloat, text: String?) {
         let wight = view.frame.width
-        lable.frame = CGRect(x: 30, y: y, width: wight - 60, height: 40)
-        lable.text = text
-        self.view.addSubview(lable)
+        label.frame = CGRect(x: 30, y: y, width: wight - 60, height: 40)
+        label.text = text
+        self.view.addSubview(label)
     }
     
     func setImage() {
@@ -89,7 +88,8 @@ class AboutViewController: UIViewController {
     
     @objc func addPhotoButtonClicked(sender: UIButton!) {
         print("Кнопка нажата")
-        favoriteVC.addFavoritePhotoButtonClicked(with: aboutPhoto)
+        guard let photo = aboutPhoto else {return}
+        dataService.addNewPhoto(with: photo)
         let alert = UIAlertController(title: "Успешно!", message: "Ваше фото добавилось в избранное.", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)

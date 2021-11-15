@@ -11,10 +11,10 @@ class FavoriteTableViewCell: UITableViewCell {
     
     static let reuseId = "Cell"
     
-    private let userLable: UILabel = {
-        let lable = UILabel()
-        lable.textColor = .white
-        return lable
+    private let userLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        return label
     }()
     
     private let photoImageView: UIImageView = {
@@ -39,12 +39,12 @@ class FavoriteTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         photoImageView.frame = CGRect(x: 0, y: 0, width: contentView.bounds.size.height, height:  contentView.bounds.size.height)
-        userLable.frame = CGRect(x: contentView.bounds.size.width / 2, y: contentView.bounds.size.height / 2, width: contentView.bounds.size.width / 2, height: 50)
+        userLabel.frame = CGRect(x: contentView.bounds.size.width / 2, y: contentView.bounds.size.height / 2, width: contentView.bounds.size.width / 2, height: 50)
         
     }
     
     func configure(with photo: Gallery?) {
-        self.userLable.text = (photo?.user.name)
+        self.userLabel.text = (photo?.user.name)
         
         guard let url = URL(string: photo?.urls.small ?? "") else {return}
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
