@@ -13,7 +13,7 @@ protocol AboutViewDelegate: AnyObject {
 
 class AboutViewController: UIViewController {
     
-    var a = FavoriteViewController()
+    var favoriteVC = FavoriteViewController()
     
     var aboutPhoto: Gallery?
     
@@ -89,7 +89,7 @@ class AboutViewController: UIViewController {
     
     @objc func addPhotoButtonClicked(sender: UIButton!) {
         print("Кнопка нажата")
-        a.addFavoritePhotoButtonClicked(with: aboutPhoto)
+        favoriteVC.addFavoritePhotoButtonClicked(with: aboutPhoto)
         let alert = UIAlertController(title: "Успешно!", message: "Ваше фото добавилось в избранное.", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)

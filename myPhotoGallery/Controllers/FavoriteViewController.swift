@@ -10,7 +10,6 @@ import UIKit
 class FavoriteViewController: UITableViewController {
     
     private var favoritePhoto = [Gallery]()
-    var someArray = [Int]()
     
     
     override func viewDidLoad() {
@@ -20,7 +19,6 @@ class FavoriteViewController: UITableViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         print(favoritePhoto.count)
-        print(someArray.count)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -37,11 +35,9 @@ class FavoriteViewController: UITableViewController {
     }
     
     func addFavoritePhotoButtonClicked(with photo: Gallery?) {
-        someArray.append(4)
-        print(someArray.count)
         guard let photo = photo else {return}
         favoritePhoto.append(photo)
-        print("Cейчас в массиве \(favoritePhoto.count) элементов и \(someArray.count)")
+        print("Cейчас в массиве \(favoritePhoto.count)")
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
