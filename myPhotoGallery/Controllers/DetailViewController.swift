@@ -7,22 +7,17 @@
 
 import UIKit
 
+
 class DetailViewController: UIViewController {
     
-    lazy var dataService: DataService = {
-    DataService()
-    }()
-
-    var aboutPhoto: Gallery?
-
-    var userLabel = UILabel()
-    var dateLabel = UILabel()
-    var locationLabel = UILabel()
-    var numOfDownloadsLabel = UILabel()
+    private var dataService = DataService()
+    var detailPhoto: Gallery?
+    private var userLabel = UILabel()
+    private var dateLabel = UILabel()
+    private var locationLabel = UILabel()
+    private var numOfDownloadsLabel = UILabel()
     
-    var addPhotoButton = UIButton()
-    
-    private let aboutImageView: UIImageView = {
+    private let detailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
@@ -31,65 +26,109 @@ class DetailViewController: UIViewController {
         return imageView
     }()
     
+    private let stackLabels: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    private var addPhotoButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+        button.layer.cornerRadius = 10
+        button.setTitle("Добавить в изобранное", for: .normal)
+        button.titleEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        button.addTarget(self, action: #selector(addPhotoButtonClicked), for: .touchUpInside)
+        return button
+    }()
+    
+    //MARK:- View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
     }
     
+    //MARK:- Configuration View
     private func configureView() {
         self.view.backgroundColor = #colorLiteral(red: 1, green: 0.9814007878, blue: 0.8189846277, alpha: 1)
-        let height = view.frame.height
         
-        let userString = ("Пользователь: \(aboutPhoto?.user.name ?? "Неизвестно")")
-        let dateString = ("Дата создания: \(aboutPhoto?.created_at ?? "Неизвестно")")
-        let locationString = ("Местоположение: \(aboutPhoto?.user.location ?? "Неизвестно")")
-        let numOfDownloadsString = ("Количество скачиваний: \(aboutPhoto?.user.total_collections ?? 0)")
-        
-        setLabels(with: userLabel, yPosition: height/2, text: userString)
-        setLabels(with: dateLabel, yPosition: height/2 + 50, text: dateString)
-        setLabels(with: locationLabel, yPosition: height/2 + 100, text: locationString)
-        setLabels(with: numOfDownloadsLabel, yPosition: height/2 + 150, text: numOfDownloadsString)
-        setImage()
-        setButton()
-        
+        //Setup Labels
+        let userString = ("Пользователь: \(detailPhoto?.user.name ?? "Неизвестно")")
+        let dateString = ("Дата создания: \(detailPhoto?.created_at ?? "Неизвестно")")
+        let locationString = ("Местоположение: \(detailPhoto?.user.location ?? "Неизвестно")")
+        let numOfDownloadsString = ("Количество скачиваний: \(detailPhoto?.user.total_collections ?? 0)")
+        setupLabels(with: userLabel, text: userString)
+        setupLabels(with: dateLabel, text: dateString)
+        setupLabels(with: locationLabel, text: locationString)
+        setupLabels(with: numOfDownloadsLabel, text: numOfDownloadsString)
     }
     
-    func setLabels(with label: UILabel, yPosition y: CGFloat, text: String?) {
-        let wight = view.frame.width
-        label.frame = CGRect(x: 30, y: y, width: wight - 60, height: 40)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        setupImage()
+        setupStackLabels()
+        setupButton()
+    }
+    
+    private func setupImage() {
+        self.view.addSubview(detailImageView)
+        layoutImage()
+        self.getImage(with: detailPhoto?.urls.small ?? "")
+    }
+    
+    private func setupStackLabels() {
+        self.view.addSubview(stackLabels)
+        layoutStackLabels()
+        stackLabels.addArrangedSubview(userLabel)
+        stackLabels.addArrangedSubview(dateLabel)
+        stackLabels.addArrangedSubview(locationLabel)
+        stackLabels.addArrangedSubview(numOfDownloadsLabel)
+    }
+    
+    private func setupLabels(with label: UILabel, text: String?) {
         label.text = text
-        self.view.addSubview(label)
+        label.numberOfLines = 0
     }
     
-    func setImage() {
-        let wight = view.frame.width
-        aboutImageView.frame = CGRect(x: wight/4, y: wight/4, width: wight/2, height: wight/2)
-        self.view.addSubview(aboutImageView)
-        self.getImage(with: aboutPhoto?.urls.small ?? "")
-    }
-    
-    func setButton() {
-        let wight = self.view.frame.width
-        let height = self.view.frame.height
-        
-        addPhotoButton.frame = CGRect(x: wight/8, y: height - 150, width: 3 * wight / 4, height: 50)
-        addPhotoButton.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-        addPhotoButton.setTitle("Добавить в изобранное", for: .normal)
-        addPhotoButton.addTarget(self, action: #selector(addPhotoButtonClicked), for: .touchUpInside)
-        
+    private func setupButton() {
         self.view.addSubview(addPhotoButton)
+        layoutButton()
     }
     
+    private func layoutImage() {
+        detailImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        detailImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        detailImageView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        detailImageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+    }
+    
+    private func layoutStackLabels() {
+        stackLabels.centerXAnchor.constraint(equalTo: detailImageView.centerXAnchor).isActive = true
+        stackLabels.topAnchor.constraint(equalTo: detailImageView.bottomAnchor, constant: 100).isActive = true
+        stackLabels.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor).isActive = true
+        stackLabels.spacing = 15
+        stackLabels.axis = .vertical
+    }
+    
+    private func layoutButton() {
+        addPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        addPhotoButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        addPhotoButton.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.7).isActive = true
+        addPhotoButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07).isActive = true
+    }
+    
+//MARK:- Bisness Logic
     @objc func addPhotoButtonClicked(sender: UIButton!) {
         print("Кнопка нажата")
-        guard let photo = aboutPhoto else {return}
+        guard let photo = detailPhoto else {return}
         dataService.addNewPhoto(with: photo)
         let alert = UIAlertController(title: "Успешно!", message: "Ваше фото добавилось в избранное.", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
-    func getImage(with urlString: String) {
+    private func getImage(with urlString: String) {
         guard let url = URL(string: urlString) else {
             print("Ошибка 1")
             return
@@ -98,19 +137,13 @@ class DetailViewController: UIViewController {
             guard let data = data, error == nil else {
                 print("Ошибка 2")
                 return
-                
             }
             DispatchQueue.main.async {
                 let image = UIImage(data: data)
-                self?.aboutImageView.image = image
-                
+                self?.detailImageView.image = image
             }
         }
         task.resume()
     }
-    
-    
-
-
 }
 

@@ -11,10 +11,16 @@ import CLTypingLabel
 
 class PhotoCollectionViewController: UICollectionViewController, UISearchBarDelegate {
     
-    private var startingLabels = CLTypingLabel()
-    var networkService: NetworkService
-    var gallery: GalleryModel?
+    private var networkService: NetworkService
     private var photos = [Gallery]()
+    
+    private var startingLabels: CLTypingLabel = {
+        let label = CLTypingLabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Введите свой запрос"
+        label.charInterval = 1
+        return label
+    }()
     
     init(networkService: NetworkService) {
         self.networkService = networkService
@@ -25,7 +31,6 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -33,22 +38,22 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
     
     //MARK:- ConfigureView
     private func configureView() {
-        setupStartingLabel()
         networkService.delegate = self
         collectionView.backgroundColor = .white
         setupCollectionView()
-        setSearchBar()
-        print("Сработал configureView для CollectionViewController")
+        setupSearchBar()
     }
-
-    func setupStartingLabel() {
-        
-        startingLabels.text = "Введите свой запрос"
-        startingLabels.center.x = (self.view.center.x - 80)
-        startingLabels.center.y = self.view.center.y
-        startingLabels.charInterval = 1
+    
+    override func viewDidLayoutSubviews() {
         self.view.addSubview(startingLabels)
+        layoutStartingLabel()
     }
+    
+    private func layoutStartingLabel() {
+        startingLabels.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        startingLabels.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+    }
+    
     
     private func setupCollectionView() {
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
@@ -60,15 +65,14 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
         collectionView.collectionViewLayout = layout
     }
     
-        private func setSearchBar() {
-            
-            let searchController = UISearchController(searchResultsController: nil)
-            searchController.searchBar.delegate = self
-            navigationItem.hidesSearchBarWhenScrolling = false
-            searchController.hidesNavigationBarDuringPresentation = false
-            searchController.obscuresBackgroundDuringPresentation = false
-            navigationItem.searchController = searchController
-        }
+    private func setupSearchBar() {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.delegate = self
+        navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.hidesNavigationBarDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+    }
     
     
     //MARK:- CollectionViewDelegate and CollectionViewDataSource
@@ -78,10 +82,7 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var photoURLString = String()
-        if let safeResult = gallery?.results[indexPath.row].urls.small {
-            photoURLString = safeResult
-        }
+        let photoURLString = photos[indexPath.row].urls.small
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as? PhotoCell else {
             return UICollectionViewCell()
@@ -92,14 +93,13 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailVC = DetailViewController()
-        detailVC.aboutPhoto = photos[indexPath.row]
+        detailVC.detailPhoto = photos[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
         
     }
-
     
     //MARK:- UISearchBarDelegate
-
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.networkService.fetchPhotos(with: searchBar.text ?? "")
         print("Запрос отправлен")
@@ -110,7 +110,6 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
 extension PhotoCollectionViewController: NetworkServiceDelegate {
     
     func didUpdateGallery(with gallery: GalleryModel) {
-        self.gallery = gallery
         self.photos = gallery.results
         DispatchQueue.main.async {
             self.collectionView.reloadData()

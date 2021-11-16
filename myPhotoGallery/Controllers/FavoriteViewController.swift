@@ -9,9 +9,8 @@ import UIKit
 
 class FavoriteViewController: UITableViewController {
     
-    lazy var dataService: DataService = {
-    DataService()
-    }()
+    private let dataService = DataService()
+    private let heigthForRow: CGFloat = 100
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +27,12 @@ class FavoriteViewController: UITableViewController {
         return DataService.arrayOfFavoritePhoto.count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 150
+        return heigthForRow
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.reuseId, for: indexPath) as? FavoriteTableViewCell else {return UITableViewCell()}
-        cell.configure(with: DataService.arrayOfFavoritePhoto[indexPath.row])
+        cell.configureCell(with: DataService.arrayOfFavoritePhoto[indexPath.row])
         return cell
     }
 }

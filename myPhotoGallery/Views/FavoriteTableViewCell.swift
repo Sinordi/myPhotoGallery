@@ -13,6 +13,7 @@ class FavoriteTableViewCell: UITableViewCell {
     
     private let userLabel: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         return label
     }()
@@ -21,7 +22,7 @@ class FavoriteTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        imageView.backgroundColor = .gray
+        imageView.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
@@ -39,14 +40,22 @@ class FavoriteTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        photoImageView.frame = CGRect(x: 0, y: 0, width: contentView.bounds.size.height, height:  contentView.bounds.size.height)
-        userLabel.frame = CGRect(x: contentView.bounds.size.width / 2, y: contentView.bounds.size.height / 2, width: contentView.bounds.size.width / 2, height: 50)
-        
+        layoutPhoto()
+        layoutLabel()
     }
     
-    func configure(with photo: Gallery?) {
-        self.userLabel.text = (photo?.user.name)
-        
+    private func layoutPhoto() {
+        photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
+        photoImageView.widthAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
+        photoImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
+    }
+    private func layoutLabel() {
+        userLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        userLabel.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 25).isActive = true
+    }
+    
+    func configureCell(with photo: Gallery?) {
+        self.userLabel.text = ("UserName: \(photo?.user.name ?? "Неизвестно")")
         guard let url = URL(string: photo?.urls.small ?? "") else {return}
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let data = data, error == nil else {return}
@@ -57,5 +66,4 @@ class FavoriteTableViewCell: UITableViewCell {
         }
         task.resume()
     }
-    
 }
