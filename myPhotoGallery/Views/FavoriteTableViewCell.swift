@@ -22,34 +22,33 @@ class FavoriteTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.clipsToBounds = true
-        imageView.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+        imageView.backgroundColor = .gray
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.backgroundColor = .gray
-        contentView.addSubview(photoImageView)
-        contentView.addSubview(userLabel)
+        configureView()
+    }
+    private func configureView() {
+        contentView.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+        layoutPhoto()
+        layoutLabel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        layoutPhoto()
-        layoutLabel()
-    }
-    
     private func layoutPhoto() {
+        contentView.addSubview(photoImageView)
         photoImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
         photoImageView.widthAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
         photoImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
     }
     private func layoutLabel() {
+        contentView.addSubview(userLabel)
         userLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         userLabel.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 25).isActive = true
     }

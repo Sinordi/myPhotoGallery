@@ -10,7 +10,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
-    private var dataService = DataService()
+    private var dataService: DataService
     var detailPhoto: Gallery?
     private var userLabel = UILabel()
     private var dateLabel = UILabel()
@@ -43,6 +43,15 @@ class DetailViewController: UIViewController {
         return button
     }()
     
+    init(dataService: DataService) {
+        self.dataService = dataService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     //MARK:- View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,6 +62,10 @@ class DetailViewController: UIViewController {
     private func configureView() {
         self.view.backgroundColor = #colorLiteral(red: 1, green: 0.9814007878, blue: 0.8189846277, alpha: 1)
         
+        //setup layouts
+        setupImage()
+        setupStackLabels()
+        setupButton()
         //Setup Labels
         let userString = ("Пользователь: \(detailPhoto?.user.name ?? "Неизвестно")")
         let dateString = ("Дата создания: \(detailPhoto?.created_at ?? "Неизвестно")")
@@ -62,13 +75,6 @@ class DetailViewController: UIViewController {
         setupLabels(with: dateLabel, text: dateString)
         setupLabels(with: locationLabel, text: locationString)
         setupLabels(with: numOfDownloadsLabel, text: numOfDownloadsString)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        setupImage()
-        setupStackLabels()
-        setupButton()
     }
     
     private func setupImage() {
@@ -122,7 +128,7 @@ class DetailViewController: UIViewController {
     @objc func addPhotoButtonClicked(sender: UIButton!) {
         print("Кнопка нажата")
         guard let photo = detailPhoto else {return}
-        if DataService.arrayOfFavoritePhoto.contains(photo) {
+        if dataService.arrayOfFavoritePhoto.contains(photo) {
             configureAlert(title: "Не удалось!", massage: "Ваше фото уже добавлено!")
         } else {
             dataService.addNewPhoto(with: photo)
@@ -143,7 +149,7 @@ class DetailViewController: UIViewController {
         }
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let data = data, error == nil else {
-                print("Ошибка 2")
+                print("Error with \(String(describing: error))")
                 return
             }
             DispatchQueue.main.async {

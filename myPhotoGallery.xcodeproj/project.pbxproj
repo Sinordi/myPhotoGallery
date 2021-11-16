@@ -22,7 +22,7 @@
 		D8B96E36273D701A00A5157E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8B96E34273D701A00A5157E /* LaunchScreen.storyboard */; };
 		D8B96E3E273D704900A5157E /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E3D273D704900A5157E /* TabBarViewController.swift */; };
 		D8B96E40273D743700A5157E /* PhotoCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E3F273D743700A5157E /* PhotoCollectionViewController.swift */; };
-		D8B96E42273E1A8900A5157E /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E41273E1A8900A5157E /* NetworkService.swift */; };
+		D8B96E42273E1A8900A5157E /* GalleryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E41273E1A8900A5157E /* GalleryService.swift */; };
 		D8B96E4A273E232E00A5157E /* GalleryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8B96E49273E232E00A5157E /* GalleryModel.swift */; };
 		E92E03D7D648D4C239C1878B /* Pods_myPhotoGallery.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5815F4311E3E7C6A89C46B44 /* Pods_myPhotoGallery.framework */; };
 /* End PBXBuildFile section */
@@ -46,7 +46,7 @@
 		D8B96E37273D701A00A5157E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D8B96E3D273D704900A5157E /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		D8B96E3F273D743700A5157E /* PhotoCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewController.swift; sourceTree = "<group>"; };
-		D8B96E41273E1A8900A5157E /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		D8B96E41273E1A8900A5157E /* GalleryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryService.swift; sourceTree = "<group>"; };
 		D8B96E49273E232E00A5157E /* GalleryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,7 +118,7 @@
 		D8B96E43273E224800A5157E /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				D8B96E41273E1A8900A5157E /* NetworkService.swift */,
+				D8B96E41273E1A8900A5157E /* GalleryService.swift */,
 				D89803DD27425F9900FD3A93 /* DataService.swift */,
 			);
 			path = Services;
@@ -293,7 +293,7 @@
 				D8B96E3E273D704900A5157E /* TabBarViewController.swift in Sources */,
 				D8B96E31273D701900A5157E /* myPhotoGallery.xcdatamodeld in Sources */,
 				D8B96E4A273E232E00A5157E /* GalleryModel.swift in Sources */,
-				D8B96E42273E1A8900A5157E /* NetworkService.swift in Sources */,
+				D8B96E42273E1A8900A5157E /* GalleryService.swift in Sources */,
 				D89803DC27410EF500FD3A93 /* FavoriteTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

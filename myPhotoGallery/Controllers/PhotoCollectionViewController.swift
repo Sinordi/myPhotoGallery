@@ -11,7 +11,7 @@ import CLTypingLabel
 
 class PhotoCollectionViewController: UICollectionViewController, UISearchBarDelegate {
     
-    private var networkService: NetworkService
+    private var networkService: GalleryService
     private var photos = [Gallery]()
     
     private var startingLabels: CLTypingLabel = {
@@ -22,7 +22,7 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
         return label
     }()
     
-    init(networkService: NetworkService) {
+    init(networkService: GalleryService) {
         self.networkService = networkService
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -92,7 +92,7 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = DetailViewController()
+        let detailVC = DetailViewController(dataService: DataService.shared)
         detailVC.detailPhoto = photos[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
@@ -106,7 +106,7 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
     }
 }
 
-extension PhotoCollectionViewController: NetworkServiceDelegate {
+extension PhotoCollectionViewController: GalleryServiceDelegate {
     
     func didUpdateGallery(with gallery: GalleryModel) {
         self.photos = gallery.results

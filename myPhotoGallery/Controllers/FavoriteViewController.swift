@@ -9,8 +9,17 @@ import UIKit
 
 class FavoriteViewController: UITableViewController {
     
-    private let dataService = DataService()
+    private var dataService: DataService
     private let heigthForRow: CGFloat = 100
+    
+    init(dataService: DataService) {
+        self.dataService = dataService
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +34,7 @@ class FavoriteViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataService.arrayOfFavoritePhoto.count
+        return dataService.arrayOfFavoritePhoto.count
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -34,12 +43,20 @@ class FavoriteViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.reuseId, for: indexPath) as? FavoriteTableViewCell else {return UITableViewCell()}
-        cell.configureCell(with: DataService.arrayOfFavoritePhoto[indexPath.row])
+        cell.configureCell(with: dataService.arrayOfFavoritePhoto[indexPath.row])
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            self.dataService.arrayOfFavoritePhoto.remove(at: indexPath.row)
+            tableView.reloadData()
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = DetailViewController()
-        detailVC.detailPhoto = DataService.arrayOfFavoritePhoto[indexPath.row]
+        let detailVC = DetailViewController(dataService: DataService.shared)
+        detailVC.detailPhoto = dataService.arrayOfFavoritePhoto[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

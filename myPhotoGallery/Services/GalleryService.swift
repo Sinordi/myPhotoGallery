@@ -1,5 +1,5 @@
 //
-//  NetworkService.swift
+//  GalleryService.swift
 //  myPhotoGallery
 //
 //  Created by Сергей Кривошапко on 12.11.2021.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol NetworkServiceDelegate {
+protocol GalleryServiceDelegate: AnyObject {
     func didUpdateGallery(with gallery: GalleryModel)
 }
 
-class NetworkService {
+class GalleryService {
     
-    var delegate: NetworkServiceDelegate?
+    weak var delegate: GalleryServiceDelegate?
     
     func fetchPhotos(with guery: String) {
         print("Выполняется запрос")
@@ -24,7 +24,8 @@ class NetworkService {
     private func performRequest(with url: String) {
         if let url = URL(string: url) {
             let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) {data, response, error in
+            let task = session.dataTask(with: url) { [weak self]data, response, error in
+                guard let self = self else {return}
                 if error != nil {
                     print("Error in task \(String(describing: error))")
                     return
