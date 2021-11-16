@@ -83,22 +83,20 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let photoURLString = photos[indexPath.row].urls.small
-        
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as? PhotoCell else {
             return UICollectionViewCell()
         }
-        cell.configure(with: photoURLString)
+        cell.configure(urlString: photoURLString)
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = DetailViewController(dataService: DataService.shared)
+        let detailVC = DetailViewController(dataService: DataService.shared, getImageService: GetImageService.shared)
         detailVC.detailPhoto = photos[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
     
     //MARK:- UISearchBarDelegate
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.networkService.fetchPhotos(with: searchBar.text ?? "")
         print("Запрос отправлен")
@@ -107,7 +105,6 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
 }
 
 extension PhotoCollectionViewController: GalleryServiceDelegate {
-    
     func didUpdateGallery(with gallery: GalleryModel) {
         self.photos = gallery.results
         DispatchQueue.main.async {

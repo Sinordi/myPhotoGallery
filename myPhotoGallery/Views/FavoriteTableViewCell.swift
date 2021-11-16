@@ -7,10 +7,10 @@
 
 import UIKit
 
-class FavoriteTableViewCell: UITableViewCell {
-    
+class FavoriteTableViewCell: UITableViewCell, GetImageServiceDelegate {
+
     static let reuseId = "Cell"
-    
+    private var getImageService = GetImageService()
     private let userLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -32,6 +32,7 @@ class FavoriteTableViewCell: UITableViewCell {
         configureView()
     }
     private func configureView() {
+        self.getImageService.delegate = self
         contentView.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
         layoutPhoto()
         layoutLabel()
@@ -47,6 +48,7 @@ class FavoriteTableViewCell: UITableViewCell {
         photoImageView.widthAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
         photoImageView.heightAnchor.constraint(equalTo: contentView.heightAnchor).isActive = true
     }
+    
     private func layoutLabel() {
         contentView.addSubview(userLabel)
         userLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
@@ -55,14 +57,10 @@ class FavoriteTableViewCell: UITableViewCell {
     
     func configureCell(with photo: Gallery?) {
         self.userLabel.text = ("UserName: \(photo?.user.name ?? "Неизвестно")")
-        guard let url = URL(string: photo?.urls.small ?? "") else {return}
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let data = data, error == nil else {return}
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                self?.photoImageView.image = image
-            }
-        }
-        task.resume()
+        self.getImageService.getImage(with: photo?.urls.small ?? "")
+    }
+    
+    func didUpdateImage(wiht image: UIImage) {
+        self.photoImageView.image = image
     }
 }

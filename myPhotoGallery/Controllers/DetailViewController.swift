@@ -8,9 +8,10 @@
 import UIKit
 
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, GetImageServiceDelegate {
     
     private var dataService: DataService
+    private let getImageService: GetImageService
     var detailPhoto: Gallery?
     private var userLabel = UILabel()
     private var dateLabel = UILabel()
@@ -43,8 +44,9 @@ class DetailViewController: UIViewController {
         return button
     }()
     
-    init(dataService: DataService) {
+    init(dataService: DataService, getImageService: GetImageService) {
         self.dataService = dataService
+        self.getImageService = getImageService
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -61,7 +63,7 @@ class DetailViewController: UIViewController {
     //MARK:- Configuration View
     private func configureView() {
         self.view.backgroundColor = #colorLiteral(red: 1, green: 0.9814007878, blue: 0.8189846277, alpha: 1)
-        
+        self.getImageService.delegate = self
         //setup layouts
         setupImage()
         setupStackLabels()
@@ -80,7 +82,7 @@ class DetailViewController: UIViewController {
     private func setupImage() {
         self.view.addSubview(detailImageView)
         layoutImage()
-        self.getImage(with: detailPhoto?.urls.small ?? "")
+        self.getImageService.getImage(with: detailPhoto?.urls.small ?? "")
     }
     
     private func setupStackLabels() {
@@ -124,7 +126,7 @@ class DetailViewController: UIViewController {
         addPhotoButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.07).isActive = true
     }
     
-//MARK:- Bisness Logic
+    //MARK:- Bisness Logic
     @objc func addPhotoButtonClicked(sender: UIButton!) {
         print("Кнопка нажата")
         guard let photo = detailPhoto else {return}
@@ -142,22 +144,8 @@ class DetailViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    private func getImage(with urlString: String) {
-        guard let url = URL(string: urlString) else {
-            print("Ошибка 1")
-            return
-        }
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let data = data, error == nil else {
-                print("Error with \(String(describing: error))")
-                return
-            }
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                self?.detailImageView.image = image
-            }
-        }
-        task.resume()
+    func didUpdateImage(wiht image: UIImage) {
+        self.detailImageView.image = image
     }
 }
 

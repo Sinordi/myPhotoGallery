@@ -7,9 +7,10 @@
 
 import UIKit
 
-class PhotoCell: UICollectionViewCell {
-    
+class PhotoCell: UICollectionViewCell, GetImageServiceDelegate {
+
     static let reuseId = "PhotoCell"
+    private let getImageService = GetImageService()
     
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()
@@ -19,10 +20,11 @@ class PhotoCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFill
         return imageView
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(photoImageView)
+        getImageService.delegate = self
     }
     
     //Для того, чтобы обнулять картинку при переиспользовании
@@ -40,16 +42,11 @@ class PhotoCell: UICollectionViewCell {
         photoImageView.frame = contentView.bounds
     }
     
-    func configure(with urlString: String) {
-        guard let url = URL(string: urlString) else {return}
-        let task = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
-            guard let data = data, error == nil else {return}
-            DispatchQueue.main.async {
-                let image = UIImage(data: data)
-                self?.photoImageView.image = image
-            }
-        }
-        task.resume()
+    func configure(urlString: String) {
+        self.getImageService.getImage(with: urlString)
     }
-
+    
+    func didUpdateImage(wiht image: UIImage) {
+        self.photoImageView.image = image
+    }
 }

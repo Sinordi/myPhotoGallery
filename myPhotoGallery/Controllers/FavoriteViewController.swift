@@ -55,7 +55,7 @@ class FavoriteViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = DetailViewController(dataService: DataService.shared)
+        let detailVC = DetailViewController(dataService: DataService.shared, getImageService: GetImageService.shared)
         detailVC.detailPhoto = dataService.arrayOfFavoritePhoto[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
