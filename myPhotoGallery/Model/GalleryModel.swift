@@ -13,7 +13,11 @@ struct GalleryModel: Codable {
     let results: [Gallery]
 }
 
-struct Gallery: Codable {
+struct Gallery: Codable, Equatable {
+    static func == (lhs: Gallery, rhs: Gallery) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     let id: String
     let created_at: String
     let urls: URLS

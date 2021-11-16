@@ -14,6 +14,7 @@ class FavoriteViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.separatorColor = .white
         tableView.dataSource = self
         tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.reuseId)
     }
@@ -26,6 +27,7 @@ class FavoriteViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return DataService.arrayOfFavoritePhoto.count
     }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return heigthForRow
     }
@@ -34,6 +36,11 @@ class FavoriteViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.reuseId, for: indexPath) as? FavoriteTableViewCell else {return UITableViewCell()}
         cell.configureCell(with: DataService.arrayOfFavoritePhoto[indexPath.row])
         return cell
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = DetailViewController()
+        detailVC.detailPhoto = DataService.arrayOfFavoritePhoto[indexPath.row]
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 

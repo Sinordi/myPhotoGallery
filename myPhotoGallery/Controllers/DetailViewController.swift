@@ -122,8 +122,16 @@ class DetailViewController: UIViewController {
     @objc func addPhotoButtonClicked(sender: UIButton!) {
         print("Кнопка нажата")
         guard let photo = detailPhoto else {return}
-        dataService.addNewPhoto(with: photo)
-        let alert = UIAlertController(title: "Успешно!", message: "Ваше фото добавилось в избранное.", preferredStyle: UIAlertController.Style.alert)
+        if DataService.arrayOfFavoritePhoto.contains(photo) {
+            configureAlert(title: "Не удалось!", massage: "Ваше фото уже добавлено!")
+        } else {
+            dataService.addNewPhoto(with: photo)
+            configureAlert(title: "Успешно!", massage: "Ваше фото добавлено!")
+        }
+    }
+    
+    private func configureAlert(title: String, massage: String) {
+        let alert = UIAlertController(title: title, message: massage, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }

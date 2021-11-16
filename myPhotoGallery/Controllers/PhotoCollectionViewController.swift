@@ -95,7 +95,6 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
         let detailVC = DetailViewController()
         detailVC.detailPhoto = photos[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
-        
     }
     
     //MARK:- UISearchBarDelegate
