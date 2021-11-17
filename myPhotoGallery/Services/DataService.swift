@@ -13,7 +13,6 @@ class DataService {
     
     func addNewPhoto(with photo: Gallery) {
         arrayOfFavoritePhoto.append(photo)
-        print("Func addNewPhoto with \(photo.id)")
     }
     
     func delitePhoto(with photo: Gallery) {
