@@ -104,6 +104,12 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
         print("Запрос отправлен")
         startingLabels.isHidden = true
     }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.photos = []
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
 }
 
 extension PhotoCollectionViewController: GalleryServiceDelegate {
