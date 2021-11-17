@@ -109,7 +109,6 @@ class DetailViewController: UIViewController, GetImageServiceDelegate {
         detailImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: (viewIsABig ? (100) : (65))).isActive = true
         detailImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: (viewIsABig ? (0.9) : (0.7))).isActive = true
         detailImageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: (viewIsABig ? (0.9) : (0.7))).isActive = true
-        print(self.view.bounds.height)
     }
     
     private func layoutStackLabels() {
