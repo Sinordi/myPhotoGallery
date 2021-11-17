@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class DetailViewController: UIViewController, GetImageServiceDelegate {
     
     private var dataService: DataService
@@ -131,20 +130,20 @@ class DetailViewController: UIViewController, GetImageServiceDelegate {
         print("Кнопка нажата")
         guard let photo = detailPhoto else {return}
         if dataService.arrayOfFavoritePhoto.contains(photo) {
-            configureAlert(title: "Готово!", massage: "Ваше фото удалено!")
+            configureAlert(title: "Готово!", message: "Ваше фото удалено!")
             dataService.delitePhoto(with: photo)
             addPhotoButton.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
             addPhotoButton.setTitle("Добавить в изобранное", for: .normal)
         } else {
             dataService.addNewPhoto(with: photo)
-            configureAlert(title: "Успешно!", massage: "Ваше фото добавлено!")
+            configureAlert(title: "Успешно!", message: "Ваше фото добавлено!")
             addPhotoButton.backgroundColor = .red
             addPhotoButton.setTitle("Удалить фото", for: .normal)
         }
     }
     
-    private func configureAlert(title: String, massage: String) {
-        let alert = UIAlertController(title: title, message: massage, preferredStyle: UIAlertController.Style.alert)
+    private func configureAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }

@@ -18,6 +18,8 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
         let label = CLTypingLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Введите свой запрос"
+        label.font = UIFont(name: "Kefa", size: 25)
+        label.textColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         label.charInterval = 1
         return label
     }()

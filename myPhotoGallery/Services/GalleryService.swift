@@ -6,13 +6,15 @@
 //
 
 import Foundation
+import UIKit
 
 protocol GalleryServiceDelegate: AnyObject {
     func didUpdateGallery(with gallery: GalleryModel)
 }
 
 class GalleryService {
-    
+    static var shared: GalleryService = GalleryService()
+    var galleryCache = NSCache<NSString, GalleryModel>()
     weak var delegate: GalleryServiceDelegate?
     
     func fetchPhotos(with guery: String) {
@@ -22,25 +24,30 @@ class GalleryService {
     }
     
     private func performRequest(with url: String) {
-        if let url = URL(string: url) {
-            let session = URLSession(configuration: .default)
-            let task = session.dataTask(with: url) { [weak self]data, response, error in
-                guard let self = self else {return}
-                if error != nil {
-                    print("Error in task \(String(describing: error))")
-                    return
-                }
-                if let data = data {
-                    do {
-                        let results = try JSONDecoder().decode(GalleryModel.self, from: data)
-                        print("Данные получены и декодированы")
-                        self.delegate?.didUpdateGallery(with: results)
-                    } catch {
-                        print("Не удалось декодировать данные")
+        if let cachedGallery = galleryCache.object(forKey: url as NSString) {
+            self.delegate?.didUpdateGallery(with: cachedGallery)
+        } else {
+            if let url = URL(string: url) {
+                let session = URLSession(configuration: .default)
+                let task = session.dataTask(with: url) { [weak self]data, response, error in
+                    guard let self = self else {return}
+                    if error != nil {
+                        print("Error in task \(String(describing: error))")
+                        return
+                    }
+                    if let data = data {
+                        do {
+                            let results = try JSONDecoder().decode(GalleryModel.self, from: data)
+                            self.galleryCache.setObject(results, forKey: url.absoluteString as NSString)
+                            print("Данные получены и декодированы")
+                            self.delegate?.didUpdateGallery(with: results)
+                        } catch {
+                            print("Не удалось декодировать данные")
+                        }
                     }
                 }
+                task.resume()
             }
-            task.resume()
         }
     }
 }

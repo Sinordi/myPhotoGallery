@@ -11,6 +11,7 @@ class PhotoCell: UICollectionViewCell, GetImageServiceDelegate {
 
     static let reuseId = "PhotoCell"
     private let getImageService = GetImageService()
+    private let galleryService = GalleryService.shared
     
     private let photoImageView: UIImageView = {
         let imageView = UIImageView()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GalleryModel: Codable {
+class GalleryModel: Codable {
     let total: Int
     let total_pages: Int
     let results: [Gallery]
