@@ -104,17 +104,19 @@ class DetailViewController: UIViewController, GetImageServiceDelegate {
     }
     
     private func layoutImage() {
+        let viewIsABig: Bool = (view.bounds.height > 700)
         detailImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        detailImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
-        detailImageView.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        detailImageView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        detailImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: (viewIsABig ? (100) : (65))).isActive = true
+        detailImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: (viewIsABig ? (0.9) : (0.7))).isActive = true
+        detailImageView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: (viewIsABig ? (0.9) : (0.7))).isActive = true
+        print(self.view.bounds.height)
     }
     
     private func layoutStackLabels() {
         stackLabels.centerXAnchor.constraint(equalTo: detailImageView.centerXAnchor).isActive = true
-        stackLabels.topAnchor.constraint(equalTo: detailImageView.bottomAnchor, constant: 100).isActive = true
+        stackLabels.topAnchor.constraint(equalTo: detailImageView.bottomAnchor, constant: 25).isActive = true
         stackLabels.widthAnchor.constraint(lessThanOrEqualTo: view.widthAnchor).isActive = true
-        stackLabels.spacing = 15
+        stackLabels.spacing = 10
         stackLabels.axis = .vertical
     }
     
