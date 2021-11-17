@@ -15,6 +15,7 @@ class FavoriteTableViewCell: UITableViewCell, GetImageServiceDelegate {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
+        label.numberOfLines = 0
         return label
     }()
     
@@ -53,10 +54,11 @@ class FavoriteTableViewCell: UITableViewCell, GetImageServiceDelegate {
         contentView.addSubview(userLabel)
         userLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         userLabel.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 25).isActive = true
+        userLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.65).isActive = true
     }
     
     func configureCell(with photo: Gallery?) {
-        self.userLabel.text = ("UserName: \(photo?.user.name ?? "Неизвестно")")
+        self.userLabel.text = ("Пользователь: \(photo?.user.name ?? "Неизвестно")")
         self.getImageService.getImage(with: photo?.urls.small ?? "")
     }
     
