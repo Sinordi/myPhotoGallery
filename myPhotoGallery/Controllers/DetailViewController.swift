@@ -128,7 +128,6 @@ class DetailViewController: UIViewController, GetImageServiceDelegate {
     
     //MARK:- Bisness Logic
     @objc func addPhotoButtonClicked(sender: UIButton!) {
-        print("Кнопка нажата")
         guard let photo = detailPhoto else {return}
         if dataService.arrayOfFavoritePhoto.contains(photo) {
             configureAlert(title: "Готово!", message: "Ваше фото удалено!")
