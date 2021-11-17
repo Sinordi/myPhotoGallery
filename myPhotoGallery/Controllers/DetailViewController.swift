@@ -131,10 +131,15 @@ class DetailViewController: UIViewController, GetImageServiceDelegate {
         print("Кнопка нажата")
         guard let photo = detailPhoto else {return}
         if dataService.arrayOfFavoritePhoto.contains(photo) {
-            configureAlert(title: "Не удалось!", massage: "Ваше фото уже добавлено!")
+            configureAlert(title: "Готово!", massage: "Ваше фото удалено!")
+            dataService.delitePhoto(with: photo)
+            addPhotoButton.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
+            addPhotoButton.setTitle("Добавить в изобранное", for: .normal)
         } else {
             dataService.addNewPhoto(with: photo)
             configureAlert(title: "Успешно!", massage: "Ваше фото добавлено!")
+            addPhotoButton.backgroundColor = .red
+            addPhotoButton.setTitle("Удалить фото", for: .normal)
         }
     }
     
