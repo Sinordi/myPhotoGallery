@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FavoriteTableViewCell: UITableViewCell, GetImageServiceDelegate {
+class FavoriteTableViewCell: UITableViewCell {
 
     static let reuseId = "Cell"
     private var getImageService = GetImageService()
@@ -62,7 +62,9 @@ class FavoriteTableViewCell: UITableViewCell, GetImageServiceDelegate {
         self.userLabel.text = ("Пользователь: \(photo?.user.name ?? "Неизвестно")")
         self.getImageService.getImage(with: photo?.urls.small ?? "")
     }
-    
+}
+
+extension FavoriteTableViewCell: GetImageServiceDelegate {
     func didUpdateImage(with image: UIImage) {
         self.photoImageView.image = image
     }

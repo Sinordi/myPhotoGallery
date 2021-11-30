@@ -7,9 +7,9 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, GetImageServiceDelegate {
+class DetailViewController: UIViewController {
     
-    private var dataService: DataService
+    private let dataService: DataService
     private let getImageService: GetImageService
     var detailPhoto: Gallery?
 
@@ -26,7 +26,7 @@ class DetailViewController: UIViewController, GetImageServiceDelegate {
     private func view() -> DetailView {
        return self.view as! DetailView
     }
-    
+
     //MARK: - LifeCycle Methods
     
     override func loadView() {
@@ -54,20 +54,14 @@ class DetailViewController: UIViewController, GetImageServiceDelegate {
         self.getImageService.getImage(with: detailPhoto?.urls.small ?? "")
     }
     
-    func didUpdateImage(with image: UIImage) {
-        view().imageView.image = image
-    }
-    
     //MARK: - Bisness Logic
     @objc func addPhotoButtonClicked(sender: UIButton!) {
-        
         guard let photo = detailPhoto else {return}
         if dataService.arrayOfFavoritePhoto.contains(photo) {
             configureAlert(title: "Готово!", message: "Ваше фото удалено!")
             dataService.delitePhoto(with: photo)
             view().button.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
             view().button.setTitle("Добавить в изобранное", for: .normal)
-            
         } else {
             dataService.addNewPhoto(with: photo)
             configureAlert(title: "Успешно!", message: "Ваше фото добавлено!")
@@ -80,6 +74,13 @@ class DetailViewController: UIViewController, GetImageServiceDelegate {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+//MARK: - GetImageServiceDelegate
+extension DetailViewController :GetImageServiceDelegate {
+    func didUpdateImage(with image: UIImage) {
+        view().imageView.image = image
     }
 }
 

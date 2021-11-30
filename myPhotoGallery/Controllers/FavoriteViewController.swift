@@ -23,14 +23,17 @@ class FavoriteViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.separatorColor = .white
-        tableView.dataSource = self
-        tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.reuseId)
+        configureView()
     }
     override func viewDidAppear(_ animated: Bool) {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
+    }
+    private func configureView() {
+        tableView.separatorColor = .white
+        tableView.dataSource = self
+        tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.reuseId)
     }
 }
 

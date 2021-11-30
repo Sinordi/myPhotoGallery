@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotoCell: UICollectionViewCell, GetImageServiceDelegate {
+class PhotoCell: UICollectionViewCell {
 
     static let reuseId = "PhotoCell"
     private let getImageService = GetImageService()
@@ -46,7 +46,9 @@ class PhotoCell: UICollectionViewCell, GetImageServiceDelegate {
     func configure(urlString: String) {
         self.getImageService.getImage(with: urlString)
     }
-    
+}
+
+extension PhotoCell: GetImageServiceDelegate {
     func didUpdateImage(with image: UIImage) {
         self.photoImageView.image = image
     }

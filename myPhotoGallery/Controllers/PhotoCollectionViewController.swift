@@ -8,7 +8,6 @@
 import UIKit
 import CLTypingLabel
 
-
 class PhotoCollectionViewController: UICollectionViewController {
     
     private var networkService: GalleryService

@@ -8,15 +8,15 @@
 import UIKit
 
 class DetailView: UIView {
-    private var dataService: DataService
-    private var detailPhoto: Gallery?
+    private let dataService: DataService
+    private let detailPhoto: Gallery?
     var imageView = UIImageView()
     private let stackLabels = UIStackView()
     var button = UIButton()
-    private var userLabel = UILabel()
-    private var dateLabel = UILabel()
-    private var locationLabel = UILabel()
-    private var numOfDownloadsLabel = UILabel()
+    private let userLabel = UILabel()
+    private let dateLabel = UILabel()
+    private let locationLabel = UILabel()
+    private let numOfDownloadsLabel = UILabel()
     
     init(frame: CGRect, dataService: DataService, detailPhoto: Gallery?) {
         self.detailPhoto = detailPhoto
@@ -51,8 +51,8 @@ class DetailView: UIView {
         let viewIsABig: Bool = (self.bounds.height > 700)
         imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: (viewIsABig ? (100) : (65))).isActive = true
-        imageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: (viewIsABig ? (0.9) : (0.7))).isActive = true
-        imageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: (viewIsABig ? (0.9) : (0.7))).isActive = true
+        imageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: (viewIsABig ? (0.9) : (0.6))).isActive = true
+        imageView.heightAnchor.constraint(equalTo: self.widthAnchor, multiplier: (viewIsABig ? (0.9) : (0.6))).isActive = true
     }
     //Creating StackView
     func createStackLabels() {
@@ -88,7 +88,7 @@ class DetailView: UIView {
         stackLabels.addArrangedSubview(locationLabel)
         stackLabels.addArrangedSubview(numOfDownloadsLabel)
     }
-
+    
     private func setupLabel(with label: UILabel, text: String?) {
         label.text = text
         label.numberOfLines = 0
