@@ -11,6 +11,10 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureView()
+    }
+    
+    private func configureView() {
         view.backgroundColor = .gray
         let collectionVC = PhotoCollectionViewController(networkService: GalleryService())
         viewControllers = [

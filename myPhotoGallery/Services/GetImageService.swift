@@ -8,7 +8,7 @@
 import UIKit
 
 protocol GetImageServiceDelegate: AnyObject {
-    func didUpdateImage(wiht image: UIImage)
+    func didUpdateImage(with image: UIImage)
 }
 
 class GetImageService {
@@ -28,7 +28,7 @@ class GetImageService {
             }
             DispatchQueue.main.async {
                 guard let image = UIImage(data: data) else {return}
-                self?.delegate?.didUpdateImage(wiht: image)
+                self?.delegate?.didUpdateImage(with: image)
             }
         }
         task.resume()

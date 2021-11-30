@@ -47,7 +47,7 @@ class PhotoCell: UICollectionViewCell, GetImageServiceDelegate {
         self.getImageService.getImage(with: urlString)
     }
     
-    func didUpdateImage(wiht image: UIImage) {
+    func didUpdateImage(with image: UIImage) {
         self.photoImageView.image = image
     }
 }

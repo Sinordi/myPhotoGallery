@@ -32,7 +32,11 @@ class FavoriteViewController: UITableViewController {
             self.tableView.reloadData()
         }
     }
-    
+}
+
+//MARK: - TableViewDataSource and TableViewDelegate
+
+extension FavoriteViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataService.arrayOfFavoritePhoto.count
     }

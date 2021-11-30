@@ -51,10 +51,11 @@ class FavoriteTableViewCell: UITableViewCell, GetImageServiceDelegate {
     }
     
     private func layoutLabel() {
+        let viewIsABig: Bool = (self.bounds.height > 700)
         contentView.addSubview(userLabel)
         userLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         userLabel.leadingAnchor.constraint(equalTo: photoImageView.trailingAnchor, constant: 25).isActive = true
-        userLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.65).isActive = true
+        userLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: (viewIsABig ? (0.7) : (0.6))).isActive = true
     }
     
     func configureCell(with photo: Gallery?) {
@@ -62,7 +63,7 @@ class FavoriteTableViewCell: UITableViewCell, GetImageServiceDelegate {
         self.getImageService.getImage(with: photo?.urls.small ?? "")
     }
     
-    func didUpdateImage(wiht image: UIImage) {
+    func didUpdateImage(with image: UIImage) {
         self.photoImageView.image = image
     }
 }

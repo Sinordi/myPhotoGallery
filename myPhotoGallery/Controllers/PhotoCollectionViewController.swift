@@ -9,7 +9,7 @@ import UIKit
 import CLTypingLabel
 
 
-class PhotoCollectionViewController: UICollectionViewController, UISearchBarDelegate {
+class PhotoCollectionViewController: UICollectionViewController {
     
     private var networkService: GalleryService
     private var photos = [Gallery]()
@@ -38,7 +38,7 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
         configureView()
     }
     
-    //MARK:- ConfigureView
+    //MARK: - ConfigureView
     private func configureView() {
         networkService.delegate = self
         collectionView.backgroundColor = .white
@@ -75,10 +75,10 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
     }
-    
-    
-    //MARK:- CollectionViewDelegate and CollectionViewDataSource
-    
+}
+
+//MARK: - CollectionViewDelegate and CollectionViewDataSource
+extension PhotoCollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
@@ -97,8 +97,10 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
         detailVC.detailPhoto = photos[indexPath.row]
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
-    
-    //MARK:- UISearchBarDelegate
+}
+
+//MARK: - UISearchBarDelegate
+extension PhotoCollectionViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.networkService.fetchPhotos(with: searchBar.text ?? "")
         print("Запрос отправлен")
@@ -112,6 +114,7 @@ class PhotoCollectionViewController: UICollectionViewController, UISearchBarDele
     }
 }
 
+//MARK: - GalleryServiceDelegate
 extension PhotoCollectionViewController: GalleryServiceDelegate {
     func didUpdateGallery(with gallery: GalleryModel) {
         self.photos = gallery.results
