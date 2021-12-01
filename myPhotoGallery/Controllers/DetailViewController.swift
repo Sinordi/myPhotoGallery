@@ -38,6 +38,10 @@ class DetailViewController: UIViewController {
         configureImage()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        view().isFavoritePhoto()
+    }
+    
     private func configureView() {
         let view = DetailView(frame: .zero, dataService: DataService.shared, detailPhoto: detailPhoto)
         view.button.addTarget(self, action: #selector(addPhotoButtonClicked), for: .touchUpInside)

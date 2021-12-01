@@ -101,8 +101,10 @@ class DetailView: UIView {
         button.layer.cornerRadius = 10
         button.titleEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         layoutButton()
-        
-        //Checking for photos in favorites
+        isFavoritePhoto()
+    }
+    //Checking for photos in favorites
+    func isFavoritePhoto() {
         guard let photo = detailPhoto else {return}
         if dataService.arrayOfFavoritePhoto.contains(photo) {
             button.backgroundColor = #colorLiteral(red: 0.6643136144, green: 0, blue: 0.08373872191, alpha: 1)
