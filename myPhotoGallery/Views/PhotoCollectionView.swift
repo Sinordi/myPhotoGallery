@@ -8,11 +8,11 @@
 import UIKit
 
 class PhotoCollectionView: UIView {
-
+    
     let collectionFlowLayout: UICollectionViewFlowLayout
     let collectionView: UICollectionView
     let startingLabels = MyCustomLabel()
-
+    
     override init(frame: CGRect) {
         collectionFlowLayout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: frame, collectionViewLayout: collectionFlowLayout)
@@ -31,7 +31,7 @@ class PhotoCollectionView: UIView {
         startingLabels.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         startingLabels.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     }
-
+    
     private func setupCollectionView() {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(collectionView)
@@ -40,11 +40,12 @@ class PhotoCollectionView: UIView {
         collectionFlowLayout.scrollDirection = .vertical
         collectionFlowLayout.minimumLineSpacing = 0
         collectionFlowLayout.minimumInteritemSpacing = 0
-        NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
+        layoutCollectionView()
+    }
+    private func layoutCollectionView() {
+        collectionView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        collectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        collectionView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        collectionView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
     }
 }
