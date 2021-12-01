@@ -35,21 +35,23 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureImage()
+        configure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        isFavoritePhoto()
         view().isFavoritePhoto()
     }
     
     private func configureView() {
-        let view = DetailView(frame: .zero, dataService: DataService.shared, detailPhoto: detailPhoto)
+        let view = DetailView(frame: .zero, detailPhoto: detailPhoto)
         view.button.addTarget(self, action: #selector(addPhotoButtonClicked), for: .touchUpInside)
         self.view = view
     }
     
-    //MARK: - Configure Image
-    private func configureImage() {
+    //MARK: - Configuration
+    private func configure() {
+        isFavoritePhoto()
         self.getImageService.delegate = self
         setupImage()
     }
@@ -64,13 +66,11 @@ class DetailViewController: UIViewController {
         if dataService.arrayOfFavoritePhoto.contains(photo) {
             configureAlert(title: "Готово!", message: "Ваше фото удалено!")
             dataService.delitePhoto(with: photo)
-            view().button.backgroundColor = #colorLiteral(red: 0.2745098174, green: 0.4862745106, blue: 0.1411764771, alpha: 1)
-            view().button.setTitle("Добавить в изобранное", for: .normal)
+            view().favoritePhoto = false
         } else {
             dataService.addNewPhoto(with: photo)
             configureAlert(title: "Успешно!", message: "Ваше фото добавлено!")
-            view().button.backgroundColor = #colorLiteral(red: 0.6643136144, green: 0, blue: 0.08373872191, alpha: 1)
-            view().button.setTitle("Удалить фото", for: .normal)
+            view().favoritePhoto = true
         }
     }
     
@@ -78,6 +78,15 @@ class DetailViewController: UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func isFavoritePhoto() {
+        guard let photo = detailPhoto else {return}
+        if dataService.arrayOfFavoritePhoto.contains(photo) {
+            view().favoritePhoto = true
+        } else {
+            view().favoritePhoto = false
+        }
     }
 }
 

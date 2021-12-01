@@ -8,7 +8,6 @@
 import UIKit
 
 class DetailView: UIView {
-    private let dataService: DataService
     private let detailPhoto: Gallery?
     var imageView = UIImageView()
     private let stackLabels = UIStackView()
@@ -17,10 +16,14 @@ class DetailView: UIView {
     private let dateLabel = UILabel()
     private let locationLabel = UILabel()
     private let numOfDownloadsLabel = UILabel()
+    var favoritePhoto: Bool = false {
+        didSet {
+            isFavoritePhoto()
+        }
+    }
     
-    init(frame: CGRect, dataService: DataService, detailPhoto: Gallery?) {
+    init(frame: CGRect, detailPhoto: Gallery?) {
         self.detailPhoto = detailPhoto
-        self.dataService = dataService
         super.init(frame: frame)
         configureView()
     }
@@ -105,8 +108,7 @@ class DetailView: UIView {
     }
     //Checking for photos in favorites
     func isFavoritePhoto() {
-        guard let photo = detailPhoto else {return}
-        if dataService.arrayOfFavoritePhoto.contains(photo) {
+        if favoritePhoto {
             button.backgroundColor = #colorLiteral(red: 0.6643136144, green: 0, blue: 0.08373872191, alpha: 1)
             button.setTitle("Удалить фото", for: .normal)
         } else {
